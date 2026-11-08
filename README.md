@@ -1,32 +1,39 @@
-# React + TypeScript + Vite
+# RepairFlow - Smart Device Repair & Service Management Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+RepairFlow is a modern, responsive SaaS application built to streamline device repair operations. It provides dedicated portals for Administrators, Technicians, and Customers, replacing outdated manual spreadsheets with an interactive dashboard experience.
 
-Currently, two official plugins are available:
+## 🚀 Demo Credentials
+To explore the different role-based interfaces, use the following demo accounts on the login screen:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@repairflow.test` | `demo123` |
+| **Technician** | `technician@repairflow.test` | `demo123` |
+| **Customer** | `customer@repairflow.test` | `demo123` |
 
-## React Compiler
+*(Tip: The login screen also has quick-fill buttons for these accounts).*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
 
-## Expanding the Oxlint configuration
+- **Admin Dashboard**: Real-time analytics, revenue trends, device category breakdowns (via Recharts), and full CRUD management for repairs, technicians, and invoices.
+- **Technician Workspace**: A drag-and-drop Kanban board (Received, Diagnosing, Repairing, Completed) with state persistence.
+- **Customer Portal**: Submit new repair requests with full Zod validation, view repair history, and track real-time progress.
+- **Repair Tracking**: An interactive 7-step visual timeline showing the live status of a device.
+- **Payment Interface**: Generate printable A4 invoices and track paid/outstanding revenue.
+- **Global UI**: Professional SaaS design, Light/Dark mode with LocalStorage persistence, responsive layout with a collapsible sidebar, and an interactive Notification Center.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 💻 Tech Stack
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+- **Core**: React 19, TypeScript, Vite
+- **State Management**: Zustand (with LocalStorage persistence)
+- **Routing**: React Router DOM
+- **Charts**: Recharts
+- **Forms & Validation**: React Hook Form, Zod
+- **Icons**: Lucide React
+- **Testing**: Vitest, React Testing Library
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 🛠️ Local Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Adijah6838/repairflow.git
