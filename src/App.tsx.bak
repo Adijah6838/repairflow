@@ -1,0 +1,67 @@
+﻿import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { AdminLayout } from './layouts/AdminLayout';
+import { useThemeStore } from './store/themeStore';
+import { useAuthStore } from './store/authStore';
+import { AdminDashboard } from './pages/admin/AdminDashboard';
+import { RepairManagement } from './pages/admin/RepairManagement';
+import './App.css';
+
+const DashboardPlaceholder = () => (
+  <div>
+    <h2 style={{ marginBottom: '8px' }}>Welcome to the Dashboard</h2>
+    <p style={{ color: 'var(--text-muted)' }}>Select a module from the sidebar to get started.</p>
+  </div>
+);
+
+const LoginPlaceholder = () => {
+  const login = useAuthStore((state) => state.login);
+  return (
+    <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--bg-main)' }}>
+      <div style={{ padding: '40px', backgroundColor: 'var(--bg-surface)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-md)', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
+        <h2 style={{ marginBottom: '24px' }}>RepairFlow Login</h2>
+        <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>Demo login to view dashboard layout</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <button onClick={() => login('admin')} style={{ padding: '12px', backgroundColor: 'var(--primary)', color: '#fff', borderRadius: 'var(--radius-sm)' }}>Login as Admin</button>
+          <button onClick={() => login('technician')} style={{ padding: '12px', backgroundColor: 'var(--nav-bg)', color: '#fff', borderRadius: 'var(--radius-sm)' }}>Login as Technician</button>
+          <button onClick={() => login('customer')} style={{ padding: '12px', backgroundColor: 'var(--success)', color: '#fff', borderRadius: 'var(--radius-sm)' }}>Login as Customer</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+function App() {
+  const theme = useThemeStore((state) => state.theme);
+  const session = useAuthStore((state) => state.session);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPlaceholder />} />
+        
+        <Route element={session ? <AdminLayout /> : <Navigate to="/login" replace />}>
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/repairs" element={<RepairManagement />} />
+          <Route path="/admin/technicians" element={<DashboardPlaceholder />} />
+          <Route path="/admin/payments" element={<DashboardPlaceholder />} />
+          
+          <Route path="/technician" element={<DashboardPlaceholder />} />
+          <Route path="/technician/kanban" element={<DashboardPlaceholder />} />
+          
+          <Route path="/customer" element={<DashboardPlaceholder />} />
+          <Route path="/customer/history" element={<DashboardPlaceholder />} />
+          <Route path="/customer/new" element={<DashboardPlaceholder />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to={session ? `/${session.role}` : "/login"} replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
